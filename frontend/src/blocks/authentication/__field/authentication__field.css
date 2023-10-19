@@ -1,0 +1,12 @@
+.authentication__field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+}
+
+@media (max-width: 1024px) {
+  .authentication__field {
+    padding: 20px 0;
+  }
+}

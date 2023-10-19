@@ -1,0 +1,22 @@
+.authentication__form {
+  margin: 0;
+  padding: 34px 36px 0;
+}
+
+@media (max-width: 1279px) {
+  .authentication__form {
+    padding: 30px 23px 0;
+  }
+}
+
+@media (max-width: 1023px) {
+  .authentication__form {
+    padding: 28px 20px 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .authentication__form {
+    padding: 25px 22px 0;
+  }
+}

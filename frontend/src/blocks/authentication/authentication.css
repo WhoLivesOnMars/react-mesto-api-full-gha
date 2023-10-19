@@ -1,0 +1,7 @@
+.authentication {
+  width: 880px;
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}

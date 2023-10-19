@@ -1,0 +1,8 @@
+.elements__item {
+  max-width: 100%;
+  min-height: 282px;
+  object-fit: cover;
+  object-position: center;
+  box-sizing: border-box;
+  cursor: pointer;
+}

@@ -1,0 +1,12 @@
+.popup__field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 23px 0;
+}
+
+@media (max-width: 1024px) {
+  .popup__field {
+    padding: 27px 0;
+  }
+}

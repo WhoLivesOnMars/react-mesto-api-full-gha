@@ -1,0 +1,30 @@
+.authentication__save-button {
+  width: 100%;
+  min-height: 50px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #fff;
+  color: #000; 
+  text-align: center;
+  font: inherit;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  border-radius: 2px;
+  margin: 200px 0 0;
+  padding: 0;
+}
+          
+.authentication__save-button:hover {
+  opacity: .8;
+}
+
+@media (max-width: 1279px) {
+  .authentication__save-button {
+    font-size: 14px;
+    line-height: 17px;
+    margin: 15px 0 0;
+  }
+}

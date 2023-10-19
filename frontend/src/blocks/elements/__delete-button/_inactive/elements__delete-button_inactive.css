@@ -1,0 +1,4 @@
+.elements__delete-button_inactive {
+  pointer-events: none;
+  opacity: 0;
+}
