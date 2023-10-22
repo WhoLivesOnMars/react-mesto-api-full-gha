@@ -1,3 +1,4 @@
+require('dotenv').config();
 const http2 = require('node:http2');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
@@ -13,6 +14,8 @@ const {
   HTTP_STATUS_OK,
   HTTP_STATUS_CREATED,
 } = http2.constants;
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports.updateUser = (req, res, next) => {
   User.findByIdAndUpdate(
@@ -115,7 +118,7 @@ module.exports.login = (req, res, next) => {
 
   User.findUserByCredentials(email, password)
     .then((user) => {
-      const jwt = jwtoken.sign({ _id: user._id }, 'super-strong-secret', { expiresIn: '7d' });
+      const jwt = jwtoken.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
       res.cookie('jwt', jwt, {
         httpOnly: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
