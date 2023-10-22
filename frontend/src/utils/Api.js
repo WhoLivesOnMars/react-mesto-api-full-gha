@@ -1,15 +1,15 @@
 import { BASE_URL } from './auth';
 
 class Api {
-  constructor(baseUrl, token) {
+  constructor(baseUrl) {
     this._baseUrl = baseUrl;
-    this._token = token;
+   /*this._token = token;*/
   }
 
   _getHeaders() {
     return {
       "Content-Type": "application/json",
-      authorization: this._token,
+      /*authorization: this._token,*/
     };
   }
 
@@ -26,7 +26,8 @@ class Api {
 
   getCurrentUser() {
     return this._request(`${this._baseUrl}/users/me`, {
-      headers: this._getHeaders()
+      headers: this._getHeaders(),
+      credentials: 'include'
   });
   }
 
@@ -34,6 +35,7 @@ class Api {
     return this._request(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._getHeaders(),
+      credentials: 'include',
       body: JSON.stringify({
         name: item.name,
         about: item.about
@@ -44,6 +46,7 @@ class Api {
   getCards() {
     return this._request(`${this._baseUrl}/cards`, {
       headers: this._getHeaders(),
+      credentials: 'include'
     });
   }
 
@@ -51,6 +54,7 @@ class Api {
     return this._request(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._getHeaders(),
+      credentials: 'include',
       body: JSON.stringify({
         link: item.link,
         name: item.name
@@ -62,20 +66,23 @@ class Api {
     return this._request(`${this._baseUrl}/cards/${id}`, {
       method: 'DELETE',
       headers: this._getHeaders(),
+      credentials: 'include'
     });
   }
 
   _addLike(id) {
     return this._request(`${this._baseUrl}/cards/${id}/likes`, {
       method: 'PUT',
-      headers: this._getHeaders()
+      headers: this._getHeaders(),
+      credentials: 'include'
     });
   }
 
   _deleteLike(id) {
     return this._request(`${this._baseUrl}/cards/${id}/likes`, {
       method: 'DELETE',
-      headers: this._getHeaders()
+      headers: this._getHeaders(),
+      credentials: 'include'
     });
   }
 
@@ -87,6 +94,7 @@ class Api {
     return this._request(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._getHeaders(),
+      credentials: 'include',
       body: JSON.stringify(input)
     });
   }

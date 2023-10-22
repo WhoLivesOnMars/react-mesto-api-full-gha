@@ -13,6 +13,7 @@ export const register = (email, password) => {
     headers: {
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify({ email, password })
   })
   .then(getJson)
@@ -24,6 +25,7 @@ export const authorize = (email, password) => {
     headers: {
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify({ email, password })
   })
   .then(getJson)
@@ -41,7 +43,19 @@ export const checkToken = () => {
     headers: {
       "Content-Type": "application/json",
       "Authorization" : `Bearer ${localStorage.getItem('token')}`
-    }
+    },
+    credentials: 'include'
   })
   .then(getJson)
 }
+
+export const logout = () => {
+  return fetch(`${BASE_URL}/signout`, {
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    credentials: 'include'
+  })
+  .then(getJson);
+};
