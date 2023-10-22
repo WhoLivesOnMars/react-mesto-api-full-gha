@@ -125,7 +125,7 @@ module.exports.login = (req, res, next) => {
         sameSite: 'none',
         secure: true,
       });
-      res.send({ message: 'Пользователь авторизован' });
+      res.send({ token: jwt });
     })
     .catch((err) => {
       next(err);
