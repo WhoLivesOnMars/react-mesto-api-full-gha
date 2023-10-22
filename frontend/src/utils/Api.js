@@ -1,3 +1,5 @@
+import { BASE_URL } from './auth';
+
 class Api {
   constructor(baseUrl, token) {
     this._baseUrl = baseUrl;
@@ -90,6 +92,6 @@ class Api {
   }
 }
 
-const api = new Api('http://localhost:3000');
+const api = new Api(BASE_URL);
 
 export default api;

@@ -15,7 +15,8 @@ const NotFoundError = require('./errors/not-found-err');
 const allowedCors = [
   'https://mesto.app.nomoredomainsrocks.ru',
   'http://mesto.app.nomoredomainsrocks.ru',
-  'localhost:3000',
+  'http://localhost:3001',
+  'http://localhost:3000',
 ];
 
 app.use((req, res, next) => {

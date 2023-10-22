@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://localhost:3000';
+export const BASE_URL = 'https://api.mesto.app.nomoredomainsrocks.ru';
 
 function getJson(res) {
   if (res.ok) {
