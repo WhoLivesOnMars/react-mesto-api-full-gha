@@ -61,13 +61,10 @@ app.get('/crash-test', () => {
   }, 0);
 });
 app.use('/', routes);
-
-app.use(errorLogger);
-
 app.use((req, res, next) => {
   next(new NotFoundError('Запрашиваемый ресурс не найден'));
 });
-
+app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 
