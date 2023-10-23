@@ -215,6 +215,7 @@ function App() {
                 onCardClick={handleCardClick}
                 onCardLike={handleCardLike}
                 onCardDelete={handleCardDelete}
+                userData = {userData}
                 cards={cards}
                 loggedIn={loggedIn}
               />
