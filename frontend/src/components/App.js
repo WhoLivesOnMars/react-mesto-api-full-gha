@@ -15,7 +15,7 @@ import AddPlacePopup from './AddPlacePopup.js';
 import ProtectedRouteElement from './ProtectedRoute.js';
 import NavBar from './NavBar.js';
 import InfoTooltip from './InfoTooltip.js'
-import { register, authorize, checkToken } from '../utils/auth.js';
+import { register, authorize, checkToken, logout } from '../utils/auth.js';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -71,10 +71,15 @@ function App() {
     }}, [loggedIn]);
 
   function signOut() {
-    localStorage.removeItem('token')
-    setLoggedIn(false);
-    setUserData({ email: '' })
-    navigate('/sign-in', {replace: true});
+    logout()
+    .then((res) => {
+      setLoggedIn(false);
+      navigate('/sign-in', {replace: true});
+    })
+    .catch(err => {
+      setSuccess(false);
+      handleInfoTooltipClick(err);
+    });
   }
 
   function handleEditAvatarClick() {
@@ -149,8 +154,8 @@ function App() {
     })
   }
 
-  function handleAddPlace(card) {
-    api.addNewCard({ item: card })
+  function handleAddPlace(place) {
+    api.addNewCard(place)
     .then((newCard) => {
       setCards([newCard, ...cards]);
       closeAllPopups()

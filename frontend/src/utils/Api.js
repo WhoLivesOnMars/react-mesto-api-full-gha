@@ -29,14 +29,14 @@ class Api {
   });
   }
 
-  setUserInfo({ item }) {
+  setUserInfo(userData) {
     return this._request(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._getHeaders(),
       credentials: 'include',
       body: JSON.stringify({
-        name: item.name,
-        about: item.about
+        name: userData.name,
+        about: userData.about
       })
     });
   }
@@ -48,14 +48,14 @@ class Api {
     });
   }
 
-  addNewCard({ item }) {
+  addNewCard(cardData) {
     return this._request(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._getHeaders(),
       credentials: 'include',
       body: JSON.stringify({
-        link: item.link,
-        name: item.name
+        link: cardData.link,
+        name: cardData.name
       })
     });
   }
