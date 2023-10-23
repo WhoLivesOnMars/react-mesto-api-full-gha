@@ -38,8 +38,6 @@ function Register(props) {
                   type="email"
                   placeholder="Email"
                   required
-                  minLength="2"
-                  maxLength="30"
                   value={formValue.email}
                   onChange={handleChange}
                 />
@@ -53,8 +51,6 @@ function Register(props) {
                   type="password"
                   placeholder="Пароль"
                   required
-                  minLength="2"
-                  maxLength="30" 
                   value={formValue.password}
                   onChange={handleChange}
                 />

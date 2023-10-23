@@ -40,8 +40,6 @@ function Login(props) {
                 type="email"
                 placeholder="Email"
                 required
-                minLength="2"
-                maxLength="40"
                 value={formValue.email}
                 onChange={handleChange}
               />
@@ -55,8 +53,6 @@ function Login(props) {
                 type="password"
                 placeholder="Пароль"
                 required
-                minLength="2"
-                maxLength="40" 
                 value={formValue.password}
                 onChange={handleChange}
               />
