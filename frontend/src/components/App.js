@@ -30,7 +30,6 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
   
   const resultTitle = isSuccess ? 'Вы успешно зарегистрировались' : 'Что-то пошло не так! Попробуйте еще раз.';
 
@@ -70,24 +69,6 @@ function App() {
         console.log(err);
       })
     }}, [loggedIn]);
-
-  useEffect(() => {
-    if (token) {
-      checkToken()
-      .then((res) => {
-        if (res){
-          setLoggedIn(true);
-          setUserData({
-            email: res.data.email
-          });
-          navigate("/", { replace: true })
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    }
-  }, [token]);
 
   function signOut() {
     localStorage.removeItem('token')
