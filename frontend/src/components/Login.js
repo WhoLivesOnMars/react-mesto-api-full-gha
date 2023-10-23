@@ -21,7 +21,7 @@ function Login(props) {
       return;
     }
     const { email, password } = formValue;
-    props.handleLogin(email, password);
+    props.onLogin(email, password);
     setFormValue({ email: '', password: '' });
   }
   
