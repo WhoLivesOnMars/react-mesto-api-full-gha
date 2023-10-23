@@ -85,23 +85,22 @@ module.exports.getCurrentUser = (req, res, next) => {
 };
 
 module.exports.createUser = (req, res, next) => {
+  const { name, about, avatar } = req.body;
+
   bcrypt.hash(req.body.password, 10)
     .then((hash) => User.create({
       email: req.body.email,
       password: hash,
-      name: req.body.name,
-      about: req.body.about,
-      avatar: req.body.avatar,
+      name,
+      about,
+      avatar,
     })
-      .then((user) => {
-        res.status(HTTP_STATUS_CREATED).send({
-          _id: user._id,
-          email: user.email,
-          name: user.name,
-          about: user.about,
-          avatar: user.avatar,
-        });
-      })
+      .then((user) => res.status(HTTP_STATUS_CREATED).send({
+        email: user.email,
+        name,
+        about,
+        avatar,
+      }))
       .catch((err) => {
         if (err.code === 11000) {
           next(new ConflictError('Пользователь с указанным email уже существует'));
@@ -110,7 +109,10 @@ module.exports.createUser = (req, res, next) => {
         } else {
           next(err);
         }
-      }));
+      }))
+    .catch((err) => {
+      next(err);
+    });
 };
 
 module.exports.login = (req, res, next) => {
