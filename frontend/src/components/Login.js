@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Login({ onLogin }) {
+function Login(props) {
   const [formValue, setFormValue] = useState({
     email: '',
     password: ''
@@ -21,7 +21,7 @@ function Login({ onLogin }) {
       return;
     }
     const { email, password } = formValue;
-    onLogin(email, password);
+    props.handleLogin(email, password);
     setFormValue({ email: '', password: '' });
   }
   

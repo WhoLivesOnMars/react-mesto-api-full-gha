@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.mesto.app.nomoredomainsrocks.ru';
+export const BASE_URL = process.env.NODE_ENV === 'production' ? 'https://api.mesto.app.nomoredomainsrocks.ru' : 'http://localhost:3000';
 
 function getJson(res) {
   if (res.ok) {
@@ -30,19 +30,16 @@ export const authorize = (email, password) => {
   })
   .then(getJson)
   .then((data) => {
-    if (data.token){
-      localStorage.setItem('token', data.token);
       return data;
-    }
-  })
+  });
 };
 
 export const checkToken = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
+      "Accept": "application/json",
       "Content-Type": "application/json",
-      "Authorization" : `Bearer ${localStorage.getItem('token')}`
     },
     credentials: 'include'
   })
