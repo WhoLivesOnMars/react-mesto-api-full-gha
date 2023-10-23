@@ -120,10 +120,12 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const jwt = jwtoken.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
       res.cookie('jwt', jwt, {
+        maxAge: 3600000 * 24 * 7,
         httpOnly: true,
-        maxAge: 7 * 24 * 60 * 60 * 1000,
+        sameSite: 'none',
+        secure: true,
       });
-      res.send({ token: jwt });
+      res.send({ message: 'Пользователь авторизован' });
     })
     .catch((err) => {
       next(err);

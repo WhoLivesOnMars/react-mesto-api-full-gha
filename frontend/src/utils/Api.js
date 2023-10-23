@@ -3,13 +3,11 @@ import { BASE_URL } from './auth';
 class Api {
   constructor(baseUrl) {
     this._baseUrl = baseUrl;
-   /*this._token = token;*/
   }
 
   _getHeaders() {
     return {
       "Content-Type": "application/json",
-      /*authorization: this._token,*/
     };
   }
 
