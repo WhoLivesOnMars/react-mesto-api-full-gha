@@ -33,6 +33,7 @@ function App() {
   
   const resultTitle = isSuccess ? 'Вы успешно зарегистрировались' : 'Что-то пошло не так! Попробуйте еще раз.';
 
+  const userEmail = userData && userData.email ? userData.email : '';
 
   useEffect(() => {
     if (loggedIn){
@@ -182,7 +183,7 @@ function App() {
       <div className="page">
         <Header>
           <NavBar
-            email={userData.email}
+            email={userEmail}
             signOut={signOut}
             loggedIn={loggedIn}
           />
