@@ -35,7 +35,21 @@ function App() {
 
   const userEmail = userData && userData.email ? userData.email : '';
 
+  function tokenCheck() {
+    checkToken()
+    .then((res) => {
+      if (res){
+        setLoggedIn(true);
+        navigate("/", { replace: true })
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  };
+
   useEffect(() => {
+    tokenCheck();
     if (loggedIn){
     Promise.all([api.getCurrentUser(), api.getCards()])
       .then(([userData, cards]) => {
@@ -46,22 +60,6 @@ function App() {
         console.log(err);
       });
   }}, [loggedIn]);
-
-  useEffect(() => {
-    checkToken()
-    .then((res) => {
-      if (res){
-        setLoggedIn(true);
-        setUserData({
-          email: res.data.email
-        });
-        navigate("/", { replace: true })
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }, [loggedIn]);
 
   function signOut() {
     setLoggedIn(false);
