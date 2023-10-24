@@ -30,8 +30,8 @@ export const authorize = (email, password) => {
   })
   .then(getJson)
   .then((data) => {
-      return data;
-  });
+    return data;
+  })
 };
 
 export const checkToken = () => {
@@ -39,21 +39,9 @@ export const checkToken = () => {
     method: 'GET',
     headers: {
       "Accept": "application/json",
-      "Content-Type": "application/json",
+      "Content-Type": "application/json"
     },
-    credentials: 'include',
+    credentials: 'include'
   })
   .then(getJson)
 }
-
-export const logout = () => {
-  return fetch(`${BASE_URL}/signout`, {
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    },
-    credentials: 'include',
-    method: 'GET'
-  })
-  .then(getJson);
-};

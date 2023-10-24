@@ -30,34 +30,34 @@ class Api {
   });
   }
 
-  setUserInfo(userData) {
+  setUserInfo({ item }) {
     return this._request(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._getHeaders(),
       credentials: 'include',
       body: JSON.stringify({
-        name: userData.name,
-        about: userData.about
+        name: item.name,
+        about: item.about
       })
     });
   }
 
   getCards() {
     return this._request(`${this._baseUrl}/cards`, {
-      method: 'GET',
+      method: 'GET', 
       headers: this._getHeaders(),
       credentials: 'include'
     });
   }
 
-  addNewCard(cardData) {
+  addNewCard({ item }) {
     return this._request(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._getHeaders(),
       credentials: 'include',
       body: JSON.stringify({
-        link: cardData.link,
-        name: cardData.name
+        link: item.link,
+        name: item.name
       })
     });
   }

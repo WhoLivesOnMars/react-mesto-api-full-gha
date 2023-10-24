@@ -1,12 +1,16 @@
-import { useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 import PopupWithForm from "./PopupWithForm";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const currentUser = useContext(CurrentUserContext);
   const [ name, setName ] = useState('');
   const [ link, setLink ] = useState('');
   
+  useEffect(() => {
+    setName("");
+    setLink("");
+  }, [isOpen]);
+
+
   function handlePlaceNameChange(e) {
     setName(e.target.value);
   }
@@ -15,19 +19,12 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     setLink(e.target.value);
   }
 
-  function handleClose() {
-    onClose();
-    setName('');
-    setLink('');
-  }
-
   function handleAddPlaceSubmit(e) {
     e.preventDefault();
   
     onAddPlace({
       name,
-      link,
-      _id: currentUser._id
+      link
     });
   }
 
@@ -36,7 +33,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       name="addPlace"
       title="Новое место"
       isOpen={isOpen}
-      onClose={handleClose}
+      onClose={onClose}
       buttonText="Создать"
       onSubmit={handleAddPlaceSubmit}
     >

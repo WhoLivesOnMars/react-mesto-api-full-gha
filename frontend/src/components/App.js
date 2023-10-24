@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import '../index.css';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import ImagePopup from './ImagePopup.js';
-import Login from './Login.js';
-import Register from './Register.js';
 import api from "../utils/Api.js";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
+import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import ProtectedRouteElement from './ProtectedRoute.js';
+import Login from './Login.js';
+import Register from './Register.js';
 import NavBar from './NavBar.js';
 import InfoTooltip from './InfoTooltip.js'
-import { register, authorize, checkToken, logout } from '../utils/auth.js';
+import { register, authorize, checkToken } from '../utils/auth.js';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({ name: '', about: '' });
   const [cards, setCards] = useState([]);
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
@@ -33,53 +33,39 @@ function App() {
   
   const resultTitle = isSuccess ? 'Вы успешно зарегистрировались' : 'Что-то пошло не так! Попробуйте еще раз.';
 
-  function tokenCheck() {
+
+  useEffect(() => {
+    if (loggedIn){
+    Promise.all([api.getCurrentUser(), api.getCards()])
+      .then(([userData, cards]) => {
+        setCurrentUser(userData);
+        setCards(cards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }}, [loggedIn]);
+
+  useEffect(() => {
     checkToken()
     .then((res) => {
       if (res){
         setLoggedIn(true);
-        navigate('/', {replace: true});
+        setUserData({
+          email: res.data.email
+        });
+        navigate("/", { replace: true })
       }
     })
     .catch((err) => {
       console.log(err);
     });
-  };
-
-  useEffect(() => {
-    tokenCheck();
-    if (loggedIn){
-      api.getCurrentUser()
-      .then(userData => {
-        setCurrentUser(userData);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    }
   }, [loggedIn]);
 
-  useEffect(() => {
-    if (loggedIn){
-      api.getCards()
-      .then(cards => {
-        setCards(cards);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    }}, [loggedIn]);
-
   function signOut() {
-    logout()
-    .then((res) => {
-      setLoggedIn(false);
-      navigate('/sign-in', {replace: true});
-    })
-    .catch(err => {
-      setSuccess(false);
-      handleInfoTooltipClick(err);
-    });
+    setLoggedIn(false);
+    setUserData({ email: '' })
+    navigate('/sign-in', {replace: true});
   }
 
   function handleEditAvatarClick() {
@@ -104,6 +90,7 @@ function App() {
   }
 
   function handleCardClick(card) {
+    setIsImagePopupOpen(true)
     setSelectedCard(card);
   }
 
@@ -153,8 +140,8 @@ function App() {
     })
   }
 
-  function handleAddPlace(place) {
-    api.addNewCard(place)
+  function handleAddPlace(card) {
+    api.addNewCard({ item: card })
     .then((newCard) => {
       setCards([newCard, ...cards]);
       closeAllPopups()
@@ -164,22 +151,16 @@ function App() {
     })
   }
 
-  function handleInfoTooltipClick(res) {
-    if(res.data) {
-      setSuccess(true);
-    }
-    setInfoTooltipOpen(true);
-  }
-
   function handleRegister(email, password) {
     register(email, password)
-    .then((res) => {
-      handleInfoTooltipClick(res);
+    .then(() => {
+      setSuccess(true);
+      setInfoTooltipOpen(true);
       navigate('/sign-in', { replace: true });
     })
-    .catch((err) => {
+    .catch(() => {
       setSuccess(false);
-      handleInfoTooltipClick(err);
+      setInfoTooltipOpen(true);
     })
   }
 
@@ -188,11 +169,11 @@ function App() {
     .then(() => {
       setUserData(email);
       setLoggedIn(true);
-      navigate('/', { replace: true });
+      navigate('/', { replace: true })
     })
-    .catch((err) => {
+    .catch(() => {
       setSuccess(false);
-      handleInfoTooltipClick(err);
+      setInfoTooltipOpen(true);
     })
   }
 

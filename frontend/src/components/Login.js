@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Login(props) {
+function Login({ onLogin }) {
   const [formValue, setFormValue] = useState({
     email: '',
     password: ''
@@ -21,7 +21,7 @@ function Login(props) {
       return;
     }
     const { email, password } = formValue;
-    props.onLogin(email, password);
+    onLogin(email, password);
     setFormValue({ email: '', password: '' });
   }
   
@@ -39,7 +39,6 @@ function Login(props) {
                 name="email"
                 type="email"
                 placeholder="Email"
-                required
                 value={formValue.email}
                 onChange={handleChange}
               />
@@ -52,7 +51,6 @@ function Login(props) {
                 name="password"
                 type="password"
                 placeholder="Пароль"
-                required
                 value={formValue.password}
                 onChange={handleChange}
               />
