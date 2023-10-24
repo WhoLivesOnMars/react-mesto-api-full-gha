@@ -104,7 +104,6 @@ function App() {
   }
 
   function handleCardClick(card) {
-    setIsImagePopupOpen(true)
     setSelectedCard(card);
   }
 

@@ -24,6 +24,7 @@ class Api {
 
   getCurrentUser() {
     return this._request(`${this._baseUrl}/users/me`, {
+      method: 'GET',
       headers: this._getHeaders(),
       credentials: 'include'
   });
@@ -43,6 +44,7 @@ class Api {
 
   getCards() {
     return this._request(`${this._baseUrl}/cards`, {
+      method: 'GET',
       headers: this._getHeaders(),
       credentials: 'include'
     });

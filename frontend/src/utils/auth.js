@@ -41,7 +41,7 @@ export const checkToken = () => {
       "Accept": "application/json",
       "Content-Type": "application/json",
     },
-    credentials: 'include'
+    credentials: 'include',
   })
   .then(getJson)
 }
@@ -52,7 +52,8 @@ export const logout = () => {
       "Accept": "application/json",
       "Content-Type": "application/json"
     },
-    credentials: 'include'
+    credentials: 'include',
+    method: 'GET'
   })
   .then(getJson);
 };
