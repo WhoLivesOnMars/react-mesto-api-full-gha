@@ -30,26 +30,12 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
   
   const resultTitle = isSuccess ? 'Вы успешно зарегистрировались' : 'Что-то пошло не так! Попробуйте еще раз.';
 
-  const userEmail = userData && userData.email ? userData.email : '';
-
-  function tokenCheck() {
-    checkToken()
-    .then((res) => {
-      if (res){
-        setLoggedIn(true);
-        navigate("/", { replace: true })
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  };
 
   useEffect(() => {
-    tokenCheck();
     if (loggedIn){
     Promise.all([api.getCurrentUser(), api.getCards()])
       .then(([userData, cards]) => {
@@ -61,7 +47,26 @@ function App() {
       });
   }}, [loggedIn]);
 
+  useEffect(() => {
+    if (token) {
+      checkToken()
+      .then((res) => {
+        if (res){
+          setLoggedIn(true);
+          setUserData({
+            email: res.data.email
+          });
+          navigate("/", { replace: true })
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  }, [token]);
+
   function signOut() {
+    localStorage.removeItem('token')
     setLoggedIn(false);
     setUserData({ email: '' })
     navigate('/sign-in', {replace: true});
@@ -157,7 +162,8 @@ function App() {
       setInfoTooltipOpen(true);
       navigate('/sign-in', { replace: true });
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
       setSuccess(false);
       setInfoTooltipOpen(true);
     })
@@ -165,12 +171,15 @@ function App() {
 
   function handleLogin(email, password) {
     authorize(email, password)
-    .then(() => {
+    .then((res) => {
       setUserData(email);
-      setLoggedIn(true);
-      navigate('/', { replace: true })
+      if (res.token) {
+        setLoggedIn(true);
+        navigate('/', { replace: true })
+      };
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
       setSuccess(false);
       setInfoTooltipOpen(true);
     })
@@ -181,7 +190,7 @@ function App() {
       <div className="page">
         <Header>
           <NavBar
-            email={userEmail}
+            email={userData.email}
             signOut={signOut}
             loggedIn={loggedIn}
           />

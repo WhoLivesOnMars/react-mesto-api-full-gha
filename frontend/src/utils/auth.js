@@ -30,7 +30,10 @@ export const authorize = (email, password) => {
   })
   .then(getJson)
   .then((data) => {
-    return data;
+    if (data.token){
+      localStorage.setItem('token', data.token);
+      return data;
+    }
   })
 };
 
@@ -38,10 +41,10 @@ export const checkToken = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization" : `Bearer ${localStorage.getItem('token')}`
     },
-    credentials: 'include'
+    credentials: 'include',
   })
   .then(getJson)
 }
