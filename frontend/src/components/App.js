@@ -155,7 +155,7 @@ function App() {
   }
 
   function handleAddPlace(card) {
-    api.addNewCard({ item: card })
+    api.addNewCard({ item: card._id })
     .then((newCard) => {
       setCards([newCard, ...cards]);
       closeAllPopups()
