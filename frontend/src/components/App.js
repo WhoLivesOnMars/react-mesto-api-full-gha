@@ -55,8 +55,7 @@ function App() {
           const data = res;
           setLoggedIn(true);
           setUserData({
-            email: data.email,
-            _id: data._id
+            email: data.email
           });
           setCurrentUser(res)
           navigate("/", { replace: true })
