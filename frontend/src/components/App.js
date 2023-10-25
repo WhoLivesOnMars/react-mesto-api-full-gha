@@ -177,11 +177,18 @@ function App() {
   function handleLogin(email, password) {
     authorize(email, password)
     .then((res) => {
-      setUserData(email);
       if (res.token) {
         setLoggedIn(true);
-        navigate('/', { replace: true })
-      };
+        setUserData({
+          email: email,
+          _id: res._id
+        });
+        setCurrentUser(res);
+        navigate('/', { replace: true });
+      } else {
+        setSuccess(false);
+        setInfoTooltipOpen(true);
+      }
     })
     .catch((err) => {
       console.log(err);
