@@ -15,7 +15,8 @@ const {
   HTTP_STATUS_CREATED,
 } = http2.constants;
 
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { SECRET_KEY = 'my-secret-key' } = process.env;
+/* const { NODE_ENV, JWT_SECRET } = process.env; */
 
 module.exports.updateUser = (req, res, next) => {
   User.findByIdAndUpdate(
@@ -120,7 +121,11 @@ module.exports.login = (req, res, next) => {
 
   User.findUserByCredentials(email, password)
     .then((user) => {
-      const jwt = jwtoken.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
+      const jwt = jwtoken.sign(
+        { _id: user._id },
+        SECRET_KEY,
+        /* NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret'), */
+      );
       res.cookie('jwt', jwt, {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
