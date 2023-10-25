@@ -1,4 +1,4 @@
-export const BASE_URL = process.env.NODE_ENV === 'production' ? 'https://api.mesto.app.nomoredomainsrocks.ru' : 'http://localhost:3000';
+export const BASE_URL = 'https://api.mesto.app.nomoredomainsrocks.ru';
 
 function getJson(res) {
   if (res.ok) {

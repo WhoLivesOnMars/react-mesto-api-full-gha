@@ -37,14 +37,20 @@ function App() {
 
   useEffect(() => {
     if (loggedIn){
-    Promise.all([api.getCurrentUser(), api.getCards()])
-      .then(([userData, cardData]) => {
-        setCurrentUser(userData);
-        setCards(cardData);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      try {
+        Promise.all([api.getCurrentUser(), api.getCards()])
+          .then(([userData, cardData]) => {
+            console.log('UserData:', userData);
+            console.log('CardData:', cardData);
+            setCurrentUser(userData);
+            setCards(cardData);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } catch (error) {
+        console.error(error);
+      }
   }}, [loggedIn]);
 
   console.log("currentUser:", currentUser);
