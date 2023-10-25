@@ -38,9 +38,9 @@ function App() {
   useEffect(() => {
     if (loggedIn){
     Promise.all([api.getCurrentUser(), api.getCards()])
-      .then(([userData, cards]) => {
-        setCurrentUser(userData);
-        setCards(cards);
+      .then((res) => {
+        setCurrentUser(res);
+        setCards(res);
       })
       .catch((err) => {
         console.log(err);
@@ -52,10 +52,13 @@ function App() {
       checkToken()
       .then((res) => {
         if (res){
+          const data = res;
           setLoggedIn(true);
           setUserData({
-            email: res.data.email
+            email: data.email,
+            _id: data._id
           });
+          setCurrentUser(res)
           navigate("/", { replace: true })
         }
       })
