@@ -6,13 +6,12 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 const { PORT = 3000 } = process.env;
-const cors = require('cors');
 const routes = require('./routes');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./middlewares/error-handler');
 const NotFoundError = require('./errors/not-found-err');
 
-/* const allowedCors = [
+const allowedCors = [
   'https://mesto.app.nomoredomainsrocks.ru',
   'http://mesto.app.nomoredomainsrocks.ru',
   'http://localhost:3001',
@@ -44,7 +43,7 @@ app.use((req, res, next) => {
 
   next();
   return res;
-}); */
+});
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
@@ -56,7 +55,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(requestLogger);
-app.use(cors());
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');

@@ -30,51 +30,50 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({});
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
   
   const resultTitle = isSuccess ? 'Вы успешно зарегистрировались' : 'Что-то пошло не так! Попробуйте еще раз.';
 
 
   useEffect(() => {
     if (loggedIn){
-      try {
-        Promise.all([api.getCurrentUser(), api.getCards()])
-          .then(([userData, cardData]) => {
-            console.log('UserData:', userData);
-            console.log('CardData:', cardData);
-            setCurrentUser(userData);
-            setCards(cardData);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } catch (error) {
-        console.error(error);
-      }
-  }}, [loggedIn]);
+      Promise.all([api.getCurrentUser(), api.getCards()])
+        .then(([userData, cardData]) => {
+          console.log('UserData:', userData);
+          console.log('CardData:', cardData);
+          setCurrentUser(userData);
+          setCards(cardData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      } 
+  }, [loggedIn]);
 
   console.log("currentUser:", currentUser);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+
     if (token) {
       checkToken()
       .then((res) => {
         if (res){
-          const data = res;
+          const { email, _id } = res;
           setLoggedIn(true);
-          setUserData({
-            email: data.email,
-            _id: data._id
-          });
+          setUserData({ email, _id });
           setCurrentUser(res)
           navigate("/", { replace: true })
+        } else {
+          // Если проверка токена не удалась, очищаем локальное хранилище
+          localStorage.removeItem('token');
         }
       })
       .catch((err) => {
         console.log(err);
+        localStorage.removeItem('token');
       });
     }
-  }, [token]);
+  }, []);
 
   function signOut() {
     localStorage.removeItem('token')
