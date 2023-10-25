@@ -5,10 +5,6 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick, onCardLike, onCardDelete, cards }) {
   const currentUser = useContext(CurrentUserContext);
 
-  if (!Array.isArray(cards)) {
-    return <div>Карточки отсутствуют или некорректные данные</div>;
-  }
-
   const cardsElements = cards.map((card) => (
     <li key={card._id}>
       <Card
