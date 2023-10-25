@@ -47,6 +47,8 @@ function App() {
       });
   }}, [loggedIn]);
 
+  console.log("currentUser:", currentUser);
+
   useEffect(() => {
     if (token) {
       checkToken()
@@ -55,7 +57,8 @@ function App() {
           const data = res;
           setLoggedIn(true);
           setUserData({
-            email: data.email
+            email: data.email,
+            _id: data._id
           });
           setCurrentUser(res)
           navigate("/", { replace: true })
