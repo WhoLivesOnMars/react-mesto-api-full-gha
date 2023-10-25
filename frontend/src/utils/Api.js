@@ -88,11 +88,7 @@ class Api {
   }
 
   changeLikeCardStatus(id, isLiked) {
-    if (isLiked) {
-      return this._deleteLike(id);
-    } else {
-      return this._addLike(id);
-    }  
+    return !isLiked ? this._deleteLike(id) : this._addLike(id)
   }
 
   setNewAvatar(input) {
