@@ -7,6 +7,7 @@ class Api {
 
   _getHeaders() {
     return {
+      authorization: `Bearer ${localStorage.getItem('token')} `,
       "Content-Type": "application/json",
     };
   }
