@@ -166,7 +166,14 @@ function App() {
   function handleAddPlace(card) {
     api.addNewCard({ item: card })
     .then((newCard) => {
-      setCards([newCard.data, ...cards]);
+      const modifiedCard = {
+        ...newCard.data,
+        owner: {
+          _id: currentUser._id,
+        },
+        likes: [],
+      };
+      setCards([modifiedCard, ...cards]);
       closeAllPopups()
     })
     .catch((err) => {
