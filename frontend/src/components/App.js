@@ -126,15 +126,19 @@ function App() {
   }
 
   function handleCardDelete(card) {
-    console.log("Удаляю карточку с _id:", card._id);
-    api.deleteCards(card._id)
-    .then(() => {
-      setCards((state) => state.filter((c) => c._id !== card._id));
-      console.log("Карточка успешно удалена");
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    if (card.owner._id === currentUser._id) {
+      console.log("Удаляю карточку с _id:", card._id);
+      api.deleteCards(card._id)
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== card._id));
+        console.log("Карточка успешно удалена");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    } else {
+      console.log("У вас нет прав на удаление этой карточки.");
+    }
   }
 
   function handleUpdateUser(user) {
