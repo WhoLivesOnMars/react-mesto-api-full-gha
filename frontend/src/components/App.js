@@ -38,9 +38,9 @@ function App() {
   useEffect(() => {
     if (loggedIn){
     Promise.all([api.getCurrentUser(), api.getCards()])
-      .then((res) => {
-        setCurrentUser(res);
-        setCards(res);
+      .then(([userData, cardData]) => {
+        setCurrentUser(userData);
+        setCards(cardData);
       })
       .catch((err) => {
         console.log(err);
