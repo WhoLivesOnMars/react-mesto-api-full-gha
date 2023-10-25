@@ -38,8 +38,6 @@ function App() {
     if (loggedIn){
       Promise.all([api.getCurrentUser(), api.getCards()])
         .then(([userData, cardData]) => {
-          console.log('UserData:', userData);
-          console.log('CardData:', cardData);
           setCurrentUser(userData);
           setCards(cardData.data);
         })
