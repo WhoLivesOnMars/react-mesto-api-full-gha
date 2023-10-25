@@ -38,16 +38,21 @@ function App() {
     if (loggedIn){
       Promise.all([api.getCurrentUser(), api.getCards()])
         .then(([userData, cardData]) => {
+          const modifiedCards = cardData.data.map((card) => ({
+            ...card,
+            owner: {
+              _id: userData._id,
+            },
+            likes: card.likes,
+          }));
           setCurrentUser(userData);
-          setCards(cardData.data);
+          setCards(modifiedCards);
         })
         .catch((err) => {
           console.log(err);
         });
       } 
   }, [loggedIn]);
-
-  console.log("currentUser:", currentUser);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
