@@ -19,6 +19,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   }
 
   function handleDeleteClick() {
+    console.log("Удаляю карточку с _id:", card._id);
     onCardDelete(card)
   }
 
