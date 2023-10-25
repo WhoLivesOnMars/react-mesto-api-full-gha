@@ -14,6 +14,10 @@ const NotFoundError = require('./errors/not-found-err');
 const allowedCors = [
   'https://mesto.app.nomoredomainsrocks.ru',
   'http://mesto.app.nomoredomainsrocks.ru',
+  'http://mesto.app.nomoredomainsrocks.ru/users/me',
+  'http://mesto.app.nomoredomainsrocks.ru/cards',
+  'https://mesto.app.nomoredomainsrocks.ru/users/me',
+  'https://mesto.app.nomoredomainsrocks.ru/cards',
   'http://localhost:3001',
   'http://localhost:3000',
 ];
