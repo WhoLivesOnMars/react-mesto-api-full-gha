@@ -14,6 +14,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   );;
 
   function handleClick() {
+    console.log(isOwn);
     onCardClick(card);
   }
 
@@ -24,6 +25,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   function handleDeleteClick() {
     console.log('ID текущего пользователя:', currentUser._id);
     console.log('ID владельца карточки:', card.owner._id);
+    console.log(isOwn);
     onCardDelete(card)
   }
 
