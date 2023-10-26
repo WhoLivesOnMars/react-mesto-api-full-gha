@@ -111,6 +111,24 @@ function App() {
     setSelectedCard(card);
   }
 
+  function handleAddPlace(card) {
+    api.addNewCard({ item: card })
+    .then((newCard) => {
+      const modifiedCard = {
+        ...newCard.data,
+        owner: {
+          _id: currentUser._id,
+        },
+        likes: [],
+      };
+      setCards([modifiedCard, ...cards]);
+      closeAllPopups()
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i === currentUser._id);
@@ -119,7 +137,7 @@ function App() {
     api.changeLikeCardStatus(card._id, !isLiked)
     .then((newCard) => {
       console.log('Обновленная карточка:', newCard);
-      const updatedCards = cards.map((c) => c._id === card._id ? newCard : c);
+      const updatedCards = cards.map((c) => c._id === newCard._id ? newCard : c);
     
       /*const cardIndex = cards.findIndex(c => c._id === newCard._id);
       const updatedCards = [...cards];
@@ -161,24 +179,6 @@ function App() {
     api.setNewAvatar(input)
     .then((newAvatar) => {
       setCurrentUser(newAvatar)
-      closeAllPopups()
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
-
-  function handleAddPlace(card) {
-    api.addNewCard({ item: card })
-    .then((newCard) => {
-      const modifiedCard = {
-        ...newCard.data,
-        owner: {
-          _id: currentUser._id,
-        },
-        likes: [],
-      };
-      setCards([modifiedCard, ...cards]);
       closeAllPopups()
     })
     .catch((err) => {
