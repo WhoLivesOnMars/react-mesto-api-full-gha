@@ -12,6 +12,7 @@ function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick, onCardLike
         onCardClick={onCardClick}
         onCardLike={onCardLike}
         onCardDelete={onCardDelete} 
+        isOwn={card.owner._id === currentUser._id}
       />
     </li>
   ))

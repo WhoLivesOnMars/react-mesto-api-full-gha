@@ -174,7 +174,7 @@ function App() {
       const modifiedCard = {
         ...newCard.data,
         owner: {
-          _id: currentUser,
+          _id: currentUser._id,
         },
         likes: [],
       };
