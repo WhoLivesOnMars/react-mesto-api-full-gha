@@ -41,7 +41,7 @@ function App() {
           const modifiedCards = cardData.data.map((card) => ({
             ...card,
             owner: {
-              _id: userData._id,
+              _id: card.owner._id,
             },
             likes: card.likes,
           }));
