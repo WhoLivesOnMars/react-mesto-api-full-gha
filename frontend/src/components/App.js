@@ -176,7 +176,7 @@ function App() {
         owner: {
           _id: currentUser._id,
         },
-        likes: card.likes,
+        likes: [],
       };
       setCards([modifiedCard, ...cards]);
       closeAllPopups()
