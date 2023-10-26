@@ -25,7 +25,9 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   return (
     <div className="elements__cell">
       <img className="elements__item" src={card.link} alt={`Фото ${card.name}`} onClick={handleClick} />
-      {isOwn && <button className="elements__delete-button" type="button" name="deleteButton" aria-label="Удалить карточку" onClick={handleDeleteClick} />}
+      {isOwn && (
+        <button className="elements__delete-button" type="button" name="deleteButton" aria-label="Удалить карточку" onClick={handleDeleteClick} />
+      )}
       <div className="elements__description">
         <h2 className="elements__title">{card.name}</h2>
         <div className="elements__like-container">
