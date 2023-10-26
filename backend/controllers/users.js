@@ -14,7 +14,6 @@ const {
   HTTP_STATUS_OK,
   HTTP_STATUS_CREATED,
 } = http2.constants;
-
 /* const { SECRET_KEY = 'my-secret-key' } = process.env; */
 const { NODE_ENV, JWT_SECRET } = process.env;
 

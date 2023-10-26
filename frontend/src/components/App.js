@@ -118,11 +118,12 @@ function App() {
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, !isLiked)
     .then((newCard) => {
-      /* const updatedCards = cards.map((c) => c._id === card._id ? newCard : c);
-      */
-      const cardIndex = cards.findIndex(c => c._id === newCard._id);
+      console.log('Обновленная карточка:', newCard);
+      const updatedCards = cards.map((c) => c._id === card._id ? newCard : c);
+    
+      /*const cardIndex = cards.findIndex(c => c._id === newCard._id);
       const updatedCards = [...cards];
-      updatedCards[cardIndex] = newCard;
+      updatedCards[cardIndex] = newCard;*/
 
       setCards(updatedCards);
     })
