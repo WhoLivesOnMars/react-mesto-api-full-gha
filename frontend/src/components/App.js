@@ -172,7 +172,7 @@ function App() {
     api.addNewCard({ item: card })
     .then((newCard) => {
       const modifiedCard = {
-        ...newCard.data,
+        ...newCard,
         owner: {
           _id: currentUser._id,
         },
