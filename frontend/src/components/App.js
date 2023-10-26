@@ -174,9 +174,9 @@ function App() {
       const modifiedCard = {
         ...newCard.data,
         owner: {
-          _id: card.owner._id,
+          _id: currentUser._id,
         },
-        likes: [],
+        likes: card.likes,
       };
       setCards([modifiedCard, ...cards]);
       closeAllPopups()
